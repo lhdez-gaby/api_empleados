@@ -17,6 +17,9 @@ namespace API_empleados.Services
         public async Task<List<Employee>> GetEmployees()=>
         await _employees.Find(employee => true).ToListAsync();
 
+        public async Task<Employee> GetEmployeeById(string id)=>
+        await _employees.Find(employee=>employee.Id == id).FirstOrDefaultAsync();
+
         public async Task<Employee> CreateEmployee(Employee employee)
         {
             await _employees.InsertOneAsync(employee);
