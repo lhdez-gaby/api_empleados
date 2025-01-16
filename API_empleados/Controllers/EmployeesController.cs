@@ -28,7 +28,7 @@ namespace API_empleados.Controllers
         [HttpGet("{id:length(24)}", Name = "GetProduct")]
         public async Task<ActionResult<Employee>> Get(string id)
         {
-            var employee = await _employeeService.GetProductById(id);
+            var employee = await _employeeService.GetEmployeeById(id);
             if(employee == null)
             {
                 return NotFound();
