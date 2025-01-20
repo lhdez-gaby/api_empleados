@@ -29,11 +29,26 @@ namespace API_empleados.Controllers
         public async Task<ActionResult<Employee>> Get(string id)
         {
             var employee = await _employeeService.GetEmployeeById(id);
-            if(employee == null)
+            if (employee == null)
             {
                 return NotFound();
             }
             return employee;
+        }
+
+        [HttpGet("search", Name = "SearchEmployees")]
+        public async Task<object> GetEmployeesBySearch(
+
+        [FromQuery] string? nombre,
+        [FromQuery] string? cargo,
+        [FromQuery] string? departamento,
+        [FromQuery] string? fechaInicial,
+        [FromQuery] string? fechaFinal,
+        [FromQuery] int pagina,
+        [FromQuery] int porPagina
+        )
+        {
+            return await _employeeService.GetEmployeesBySearch(nombre, cargo, departamento, fechaInicial, fechaFinal, pagina, porPagina);
         }
 
         [HttpPost]
@@ -41,7 +56,7 @@ namespace API_empleados.Controllers
         {
             var createEmployee = await _employeeService.CreateEmployee(employee);
 
-            return CreatedAtRoute("GetProduct", new {id= createEmployee.Id}, createEmployee);
+            return CreatedAtRoute("GetProduct", new { id = createEmployee.Id }, createEmployee);
         }
 
     }
